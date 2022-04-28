@@ -20,4 +20,14 @@ public class Boss extends Character{
     public void block() {
 
     }
+
+    @Override
+    public void criticalAttack() {
+
+    }
+
+    @Override
+    public void useSpecialAbility() {
+
+    }
 }

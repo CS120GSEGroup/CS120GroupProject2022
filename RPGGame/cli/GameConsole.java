@@ -18,17 +18,21 @@ public class GameConsole {
     public void run() {
         Scanner mainScanner = new Scanner(System.in);
         System.out.println("------MENU------");
-        System.out.println("Play");
-        System.out.println("Exit");
+        System.out.println("Play -- press 'p'");
+        System.out.println("Exit -- press 'e'");
 
         String selection = mainScanner.next();
 
-        if (!"Play".equals(selection)) {
+        if (!"p".equals(selection)) {
             System.exit(0);
         } else {
             gameInstance = new Game();
-            gameInstance.start();
+            start();
         }
         mainScanner.close();
+    }
+
+    public void start() {
+
     }
 }
