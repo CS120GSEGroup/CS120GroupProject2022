@@ -8,4 +8,8 @@ public interface Fightable {
     int heal();
 
     void block();
+
+    void criticalAttack();
+
+    void useSpecialAbility();
 }
