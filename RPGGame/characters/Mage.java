@@ -1,6 +1,6 @@
 package RPGGame.characters;
 
-public class Mage extends Character{
+public class Mage extends GameCharacter {
 
     private int armorPercentage;
 
@@ -12,12 +12,12 @@ public class Mage extends Character{
         this.armorPercentage = armorPercentage;
     }
     @Override
-    public void attack(Character opponent, Character activePlayer) {
+    public void attack(GameCharacter opponent, GameCharacter activePlayer) {
         opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
     }
 
     @Override
-    public int takeDamage(Character activePlayer) {
+    public int takeDamage(GameCharacter activePlayer) {
         return (activePlayer.getDamage() * (100 - armorPercentage) / 100);
     }
 

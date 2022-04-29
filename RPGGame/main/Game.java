@@ -1,19 +1,36 @@
 package RPGGame.main;
 
-import RPGGame.characters.Archer;
-import RPGGame.characters.Character;
-import RPGGame.characters.Mage;
-import RPGGame.characters.Soldier;
+import RPGGame.characters.*;
+
+import java.util.ArrayList;
 
 public class Game {
 
     private boolean isGameOver;
     private int difficultyLevel;
 
-    private Character playerCharacter;
+    private GameCharacter playerCharacter;
+
+    private ArrayList<GameCharacter> enemies;
 
     public Game() {
         isGameOver = false;
+        difficultyLevel = 4;
+        playerCharacter = null;
+    }
+
+    private void makeEnemies() {
+        int numberOfEnemies = (int) ((Math.random() * (14 - 7)) + 7);
+        enemies = new ArrayList<>(numberOfEnemies);
+        for (int i = 0; i < numberOfEnemies; i++) {
+            enemies.add(getRandomEnemy());
+        }
+        enemies.add(new Boss());
+    }
+
+    private GameCharacter getRandomEnemy() {
+        GameCharacter[] enemyTypes = new GameCharacter[] {new Archer(), new Mage(), new Officer(), new Soldier()};
+        return enemyTypes[(int) (Math.random() * enemyTypes.length)];
     }
 
     public void start() {
@@ -36,11 +53,13 @@ public class Game {
         switch (difficultyLevel) {
             case "e" -> this.difficultyLevel = 0;
             case "m" -> this.difficultyLevel = 2;
-            default -> this.difficultyLevel = 3;
+            case "h" -> this.difficultyLevel = 3;
+            default -> System.out.println("Invalid difficulty level.");
+
         }
     }
 
-    public Character getPlayerCharacter() {
+    public GameCharacter getPlayerCharacter() {
         return playerCharacter;
     }
 
@@ -48,7 +67,9 @@ public class Game {
         switch (playerType) {
             case "s" -> this.playerCharacter = new Soldier();
             case "w" -> this.playerCharacter = new Mage();
-            default -> this.playerCharacter = new Archer();
+            case "a" -> this.playerCharacter = new Archer();
+            default -> System.out.println("Invalid player type.");
         }
+        makeEnemies();
     }
 }

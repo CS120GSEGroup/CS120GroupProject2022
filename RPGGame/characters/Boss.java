@@ -1,13 +1,13 @@
 package RPGGame.characters;
 
-public class Boss extends Character{
+public class Boss extends GameCharacter {
     @Override
-    public void attack(Character opponent, Character activePlayer) {
+    public void attack(GameCharacter opponent, GameCharacter activePlayer) {
 
     }
 
     @Override
-    public int takeDamage(Character activePlayer) {
+    public int takeDamage(GameCharacter activePlayer) {
         return 0;
     }
 

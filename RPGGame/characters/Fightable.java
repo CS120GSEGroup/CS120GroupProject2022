@@ -1,9 +1,9 @@
 package RPGGame.characters;
 
 public interface Fightable {
-    void attack(Character opponent, Character activePlayer);
+    void attack(GameCharacter opponent, GameCharacter activePlayer);
 
-    int takeDamage(Character activePlayer);
+    int takeDamage(GameCharacter activePlayer);
 
     int heal();
 

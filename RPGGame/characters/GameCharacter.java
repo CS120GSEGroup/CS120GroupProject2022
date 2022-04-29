@@ -1,16 +1,15 @@
 package RPGGame.characters;
 
-public abstract class Character implements Fightable {
+public abstract class GameCharacter implements Fightable {
 
     private int health;
-    private int armorHealth;
     private int damage;
     private String name;
 
-    public Character() {
+    public GameCharacter() {
     }
 
-    public Character(String name, int health, int attackPoints, int armorHealth) {
+    public GameCharacter(String name, int health, int attackPoints, int armorHealth) {
     }
 
     public int getHealth() {
@@ -19,14 +18,6 @@ public abstract class Character implements Fightable {
 
     public void setHealth(int health) {
         this.health = health;
-    }
-
-    public int getArmorHealth() {
-        return armorHealth;
-    }
-
-    public void setArmorHealth(int armorHealth) {
-        this.armorHealth = armorHealth;
     }
 
     public int getDamage() {

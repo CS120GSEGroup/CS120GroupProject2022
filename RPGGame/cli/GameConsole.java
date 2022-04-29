@@ -22,17 +22,21 @@ public class GameConsole {
             switch (selection) {
                 case "p":
                     gameInstance = new Game();
-                    System.out.println("Select difficulty level");
-                    System.out.println("(e) Easy");
-                    System.out.println("(m) Medium");
-                    System.out.println("(h) Hard");
-                    gameInstance.setDifficultyLevel(mainScanner.next());
+                    while(gameInstance.getDifficultyLevel() > 3) {
+                        System.out.println("Select difficulty level");
+                        System.out.println("(e) Easy");
+                        System.out.println("(m) Medium");
+                        System.out.println("(h) Hard");
+                        gameInstance.setDifficultyLevel(mainScanner.next());
+                    }
 
-                    System.out.println("Select character type");
-                    System.out.println("(s) Soldier");
-                    System.out.println("(w) Wizard");
-                    System.out.println("(a) Archer");
-                    gameInstance.setPlayerCharacter(mainScanner.next());
+                    while(gameInstance.getPlayerCharacter() == null) {
+                        System.out.println("Select character type");
+                        System.out.println("(s) Soldier");
+                        System.out.println("(w) Wizard");
+                        System.out.println("(a) Archer");
+                        gameInstance.setPlayerCharacter(mainScanner.next());
+                    }
 
                     while (!gameInstance.isGameOver()) {
 
