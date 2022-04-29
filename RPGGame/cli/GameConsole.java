@@ -10,25 +10,58 @@ public class GameConsole {
 
     Game gameInstance;
 
-    public GameConsole() throws FileNotFoundException {
-        Scanner textScanner = new Scanner(new FileInputStream("scenario.txt"));
+    public GameConsole() {
 
     }
 
     public void run() {
         Scanner mainScanner = new Scanner(System.in);
-        System.out.println("------MENU------");
-        System.out.println("Play");
-        System.out.println("Exit");
-
+        printMenu();
         String selection = mainScanner.next();
+        while(!selection.equals("e")) {
+            switch (selection) {
+                case "p":
+                    gameInstance = new Game();
+                    System.out.println("Select difficulty level");
+                    System.out.println("(e) Easy");
+                    System.out.println("(m) Medium");
+                    System.out.println("(h) Hard");
+                    gameInstance.setDifficultyLevel(mainScanner.next());
 
-        if (!"Play".equals(selection)) {
-            System.exit(0);
-        } else {
-            gameInstance = new Game();
-            gameInstance.start();
+                    System.out.println("Select character type");
+                    System.out.println("(s) Soldier");
+                    System.out.println("(w) Wizard");
+                    System.out.println("(a) Archer");
+                    gameInstance.setPlayerCharacter(mainScanner.next());
+
+                    while (!gameInstance.isGameOver()) {
+
+                    }
+
+                case "c":
+                    printCredits();
+                    break;
+                default:
+                    System.exit(0);
+                    break;
+            }
+            printMenu();
+            selection = mainScanner.next();
         }
+
         mainScanner.close();
+    }
+
+    private void printCredits() {
+        System.out.println("Scenario: Surik Simonyan");
+        System.out.println("Main Developer: Georgi Panosyan");
+        System.out.println("Developer: Erik Khalatyan");
+    }
+
+    private void printMenu() {
+        System.out.println("------Elden Square------");
+        System.out.println("(p) Play");
+        System.out.println("(c) Credits");
+        System.out.println("(e) Exit");
     }
 }
