@@ -1,33 +1,23 @@
 package RPGGame.characters;
 
-public class Boss extends Character{
+public class Boss extends GameCharacter {
+
+    public Boss() {
+    }
+
+    public Boss(int health, int attackPoints, int level, int potions) {
+        super(health, attackPoints, level, potions);
+    }
+
     @Override
-    public void attack(Character opponent, Character activePlayer) {
+    public void attack(GameCharacter opponent, GameCharacter activePlayer) {
 
     }
 
     @Override
-    public int takeDamage(Character activePlayer) {
+    public int takeDamage(GameCharacter activePlayer) {
         return 0;
     }
 
-    @Override
-    public int heal() {
-        return 0;
-    }
 
-    @Override
-    public void block() {
-
-    }
-
-    @Override
-    public void criticalAttack() {
-
-    }
-
-    @Override
-    public void useSpecialAbility() {
-
-    }
 }

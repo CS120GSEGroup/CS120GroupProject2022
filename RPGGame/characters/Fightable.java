@@ -1,15 +1,10 @@
 package RPGGame.characters;
 
 public interface Fightable {
-    void attack(Character opponent, Character activePlayer);
 
-    int takeDamage(Character activePlayer);
+    void attack(GameCharacter opponent, GameCharacter activePlayer);
 
-    int heal();
+    int takeDamage(GameCharacter activePlayer);
 
-    void block();
 
-    void criticalAttack();
-
-    void useSpecialAbility();
 }

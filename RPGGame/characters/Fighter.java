@@ -1,33 +1,37 @@
 package RPGGame.characters;
 
-public class Fighter extends Character {
+public class Fighter extends GameCharacter {
+
+    public Fighter() {
+        this.setHealth(40);
+        this.setDamage(20);
+        this.setLevel(1);
+    }
+
+    public Fighter(int health, int attackPoints, int level, int potions) {
+        super(health, attackPoints, level, potions);
+    }
+
     @Override
-    public void attack(Character opponent, Character activePlayer) {
+    public void attack(GameCharacter opponent, GameCharacter activePlayer) {
 
     }
 
     @Override
-    public int takeDamage(Character activePlayer) {
+    public int takeDamage(GameCharacter activePlayer) {
         return 0;
     }
 
     @Override
-    public int heal() {
-        return 0;
-    }
-
-    @Override
-    public void block() {
+    public void useSpecialAbility(GameCharacter opponent, GameCharacter activePlayer) {
 
     }
 
-    @Override
-    public void criticalAttack() {
 
-    }
+
 
     @Override
-    public void useSpecialAbility() {
-
+    public String toString() {
+        return this.getName() + " the Warrior";
     }
 }
