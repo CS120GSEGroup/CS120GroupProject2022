@@ -6,17 +6,22 @@ public abstract class GameCharacter implements Fightable {
     private int damage;
     private String name;
     private int level;
-    private int potions;
 
 
     public GameCharacter() {
     }
 
-    public GameCharacter(int health, int attackPoints, int level, int potions) {
+    public GameCharacter(int health, int attackPoints, int level) {
         this.health = health;
         this.damage = attackPoints;
         this.level = level;
-        this.potions = potions;
+    }
+
+    public GameCharacter(GameCharacter g) {
+        this.setHealth(g.getHealth());
+        this.setDamage(getDamage());
+        this.setLevel(g.getLevel());
+        this.setName(g.getName());
     }
 
     public int getHealth() {
@@ -51,26 +56,10 @@ public abstract class GameCharacter implements Fightable {
         this.level = level;
     }
 
-    public int getPotions() {
-        return potions;
-    }
-
-    public void setPotions(int potions) {
-        this.potions = potions;
-    }
-
     public void useSpecialAbility(GameCharacter opponent, GameCharacter activePlayer) {
 
     }
 
 
-    public final boolean heal() {
-        if (this.getPotions() > 0) {
-            this.setHealth(this.getHealth() + 10);
-            this.setPotions(this.getPotions() - 1);
-            return true;
-        }
-        System.out.println("No potions left");
-        return false;
-    }
+
 }

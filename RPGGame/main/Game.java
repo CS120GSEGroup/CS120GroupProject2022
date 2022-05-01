@@ -10,10 +10,10 @@ import java.util.Scanner;
 
 public class Game {
 
-    private GameCharacter mainCharacter;
+    private  PlayableCharacter mainCharacter;
     private int difficultyLevel;
     private boolean isGameOver;
-    private ArrayList<GameCharacter> enemies;
+    private ArrayList<NPC> enemies;
 
 
     public Game() {
@@ -67,17 +67,17 @@ public class Game {
         }
     }
 
-    public ArrayList<GameCharacter> getEnemies() {
-        return new ArrayList<GameCharacter>(enemies);
+    public ArrayList<NPC> getEnemies() {
+        return new ArrayList<>(this.enemies);
     }
 
-    public void setEnemies(ArrayList<GameCharacter> enemies) {
+    public void setEnemies(ArrayList<NPC> enemies) {
         this.enemies = enemies;
     }
 
     public void battle() {
         setEnemies(makeEnemies());
-        GameCharacter activePlayer = this.mainCharacter;
+        PlayableCharacter activePlayer = this.mainCharacter;
         int counter = enemies.size() - 1;
         boolean isValid = false;
         while ((activePlayer.getHealth() != 0 || enemies.get(counter).getHealth() != 0)) {
@@ -91,13 +91,13 @@ public class Game {
             }
             if (enemies.get(counter).getHealth() <= 0) {
                 enemies.get(counter).setHealth(0);
-                printVictoryMessage();
+                //printVictoryMessage();
                 System.out.println();
                 enemies.remove(counter);
                 break;
             }
             System.out.println(enemies.get(counter).getName() + " has taken damage: " + enemies.get(counter).getHealth());
-            enemies.get(counter).attack(activePlayer, enemies.get(counter));
+            enemies.get(counter).attack( enemies.get(counter),activePlayer);
             if (activePlayer.getHealth() <= 0) {
                 activePlayer.setHealth(0);
                 printDefeatMessage();
@@ -114,14 +114,14 @@ public class Game {
         return this.isGameOver;
     }
 
-    public void printActionMenu() {
+    public static void printActionMenu() {
         System.out.println("---Action Menu---");
         System.out.println("Press '1' to attack");
         System.out.println("Press '2' to attempt special ability");
         System.out.println("Press '3' to heal");
     }
 
-    public void selectAction(GameCharacter activePlayer, GameCharacter opponent) throws NoSuchElementException {
+    public static void selectAction(PlayableCharacter activePlayer, NPC opponent) throws NoSuchElementException {
         Scanner actionScanner = new Scanner(System.in);
         printActionMenu();
         int selection = actionScanner.nextInt();
@@ -137,37 +137,37 @@ public class Game {
         actionScanner.close();
     }
 
-    private ArrayList<GameCharacter> makeEnemies() {
+    private ArrayList<NPC> makeEnemies() {
         int numberOfEnemies = (int) ((Math.random() * (14 - 7)) + 7);
-        ArrayList<GameCharacter> enemies = new ArrayList<>(numberOfEnemies);
+        ArrayList<NPC> enemies = new ArrayList<>(numberOfEnemies);
         for (int i = 0; i < numberOfEnemies; i++) {
             enemies.add(getRandomEnemy());
         }
         return enemies;
     }
 
-    private GameCharacter getRandomEnemy() {
-        GameCharacter[] enemyTypes = new GameCharacter[]{new Archer(), new Mage(), new Officer(), new Soldier()};
+    private NPC getRandomEnemy() {
+        NPC[] enemyTypes = new NPC[]{ new Officer(), new Soldier()};
         return enemyTypes[(int) (Math.random() * enemyTypes.length)];
     }
 
-    private void printVictoryMessage() {
-        System.out.println(/*some image*/);
-        System.out.println("Congratulations, " + this.mainCharacter.getName() + "you won!");
-    }
+//    private static void printVictoryMessage() {
+//        System.out.println(/*some image*/);
+//        System.out.println("Congratulations, " + mainCharacter.getName() + "you won!");
+//    }
 
-    private void printDefeatMessage() {
+    private static void printDefeatMessage() {
         System.out.println(/*some image*/);
         System.out.println("You died. Try again");
 
     }
 
-    private void printPlayerStats(GameCharacter gameCharacter) {
-        System.out.println(gameCharacter.getName());
-        System.out.println("Level: " + gameCharacter.getLevel());
-        System.out.println("Health: " + gameCharacter.getHealth());
-        System.out.println("Damage: " + gameCharacter.getDamage());
-        System.out.println("Potions: " + gameCharacter.getPotions());
+    private void printPlayerStats(PlayableCharacter c) {
+        System.out.println(c.getName());
+        System.out.println("Level: " + c.getLevel());
+        System.out.println("Health: " + c.getHealth());
+        System.out.println("Damage: " + c.getDamage());
+        System.out.println("Potions: " + c.getPotions());
 
     }
 }
