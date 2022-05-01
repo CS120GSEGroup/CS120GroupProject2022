@@ -2,7 +2,7 @@ package RPGGame.characters;
 
 public interface Fightable {
 
-    void attack(GameCharacter opponent, GameCharacter activePlayer);
+    void attack(NPC opponent, PlayableCharacter activePlayer);
 
     int takeDamage(GameCharacter activePlayer);
 

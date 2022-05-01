@@ -1,6 +1,6 @@
 package RPGGame.characters;
 
-public class Fighter extends GameCharacter {
+public class Fighter extends PlayableCharacter {
 
     public Fighter() {
         this.setHealth(40);
@@ -8,12 +8,10 @@ public class Fighter extends GameCharacter {
         this.setLevel(1);
     }
 
-    public Fighter(int health, int attackPoints, int level, int potions) {
-        super(health, attackPoints, level, potions);
-    }
+
 
     @Override
-    public void attack(GameCharacter opponent, GameCharacter activePlayer) {
+    public void attack(NPC opponent, PlayableCharacter activePlayer) {
 
     }
 

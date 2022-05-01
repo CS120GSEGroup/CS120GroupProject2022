@@ -1,6 +1,6 @@
 package RPGGame.characters;
 
-public class Mage extends GameCharacter {
+public class Mage extends PlayableCharacter {
 
     private int armorPercentage;
     private int specialCounter;
@@ -13,14 +13,14 @@ public class Mage extends GameCharacter {
         this.setSpecialCounter(0);
     }
 
-    public Mage(int health, int damage, int level, int potions, int specialCounter) {
-        super(health, damage, level, potions);
-        this.armorPercentage = level * (health / 3);
-        this.specialCounter = specialCounter;
-    }
+//    public Mage(int health, int damage, int level, int potions, int specialCounter) {
+//        super(health, damage, level, potions);
+//        this.armorPercentage = level * (health / 3);
+//        this.specialCounter = specialCounter;
+//    }
 
     @Override
-    public void attack(GameCharacter opponent, GameCharacter activePlayer) {
+    public void attack(NPC opponent, PlayableCharacter activePlayer) {
         opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
     }
 

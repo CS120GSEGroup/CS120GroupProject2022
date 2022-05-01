@@ -1,8 +1,8 @@
 package RPGGame.characters;
 
-public class Archer extends GameCharacter {
+public class Archer extends PlayableCharacter {
 
-    int specialCounter;
+
 
     public Archer() {
         this.setHealth(40);
@@ -12,20 +12,11 @@ public class Archer extends GameCharacter {
 
     }
 
-    public Archer(int health, int attackPoints, int level, int potions) {
-        super(health, attackPoints, level, potions);
-    }
 
-    public int getSpecialCounter() {
-        return specialCounter;
-    }
 
-    public void setSpecialCounter(int specialCounter) {
-        this.specialCounter = specialCounter;
-    }
 
     @Override
-    public void attack(GameCharacter opponent, GameCharacter activePlayer) {
+    public void attack(NPC opponent, PlayableCharacter activePlayer) {
         int criticalHitVector = (int) ((Math.random() * 10) + 15);
         if (criticalHitVector % 5 == 0) {
             int temp = activePlayer.getDamage();
