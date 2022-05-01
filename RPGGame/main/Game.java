@@ -17,6 +17,7 @@ public class Game {
         isGameOver = false;
         difficultyLevel = 4;
         playerCharacter = null;
+        makeEnemies();
     }
 
     private void makeEnemies() {
@@ -70,6 +71,5 @@ public class Game {
             case "a" -> this.playerCharacter = new Archer();
             default -> System.out.println("Invalid player type.");
         }
-        makeEnemies();
     }
 }
