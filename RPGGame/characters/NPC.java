@@ -15,7 +15,6 @@ public class NPC extends GameCharacter {
         int criticalHitVector = (int) ((Math.random() * 10) + opponent.getLevel());
         if (criticalHitVector % 6 == 0) {
             int temp = opponent.getDamage();
-
             opponent.setDamage(opponent.getDamage() * 2);
             activePlayer.setHealth(activePlayer.getHealth() - activePlayer.takeDamage(opponent));
             opponent.setDamage(temp);

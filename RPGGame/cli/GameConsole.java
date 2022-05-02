@@ -1,13 +1,17 @@
 package RPGGame.cli;
 
+import RPGGame.characters.Archer;
+import RPGGame.characters.Fighter;
 import RPGGame.main.Game;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class GameConsole {
 
     Game gameInstance;
 
-    public  GameConsole(){
+    public GameConsole() {
 
     }
 
@@ -41,10 +45,12 @@ public class GameConsole {
             printCharacterMenu();
             gameInstance.setMainCharacter(gameScanner.next());
         }
-        System.out.println("Prompt for character naming");
-        gameInstance.getMainCharacter().setName(gameScanner.next());
 
+        System.out.println("Todd: Hey you, finally awake. You should be new here. What's your name stranger?");
+        gameInstance.getMainCharacter().setName(gameScanner.next());
+        System.out.println("Wait. you said " + gameInstance.getMainCharacter().getName() + "? So you, you're the man of prophecy who's supposed to help us. No time, here, take my " + gameInstance.getMainCharacter().getWeaponsName() + "they will be useful to you. Defeat these guards and I will explain everything to you.");
         gameInstance.battle();
+
     }
 
     private void printMainMenu() {

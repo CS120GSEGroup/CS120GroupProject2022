@@ -6,6 +6,7 @@ public class Fighter extends PlayableCharacter {
         this.setHealth(40);
         this.setDamage(20);
         this.setLevel(1);
+        this.setWeaponsName("sword and armor");
     }
 
 

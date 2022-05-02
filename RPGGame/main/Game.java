@@ -10,15 +10,19 @@ import java.util.Scanner;
 
 public class Game {
 
-    private  PlayableCharacter mainCharacter;
+    private PlayableCharacter mainCharacter;
     private int difficultyLevel;
     private boolean isGameOver;
     private ArrayList<NPC> enemies;
 
+    private boolean isFirstEnemy = true;
+
 
     public Game() {
         isGameOver = false;
-
+        difficultyLevel = 4;
+        mainCharacter = null;
+        makeEnemies();
     }
 
     public void setMainCharacter(String playerType) {
@@ -30,7 +34,7 @@ public class Game {
         }
     }
 
-    public GameCharacter getMainCharacter() {
+    public PlayableCharacter getMainCharacter() {
         return this.mainCharacter;
     }
 
@@ -67,37 +71,28 @@ public class Game {
         }
     }
 
-    public ArrayList<NPC> getEnemies() {
-        return new ArrayList<>(this.enemies);
-    }
-
-    public void setEnemies(ArrayList<NPC> enemies) {
-        this.enemies = enemies;
-    }
-
     public void battle() {
-        setEnemies(makeEnemies());
         PlayableCharacter activePlayer = this.mainCharacter;
-        int counter = enemies.size() - 1;
+        NPC enemyCharacter = enemies.get(0);
         boolean isValid = false;
-        while ((activePlayer.getHealth() != 0 || enemies.get(counter).getHealth() != 0)) {
-            while(!isValid){
+        while ((activePlayer.getHealth() != 0 || enemyCharacter.getHealth() != 0)) {
+            while (!isValid) {
                 try {
-                    selectAction(activePlayer, enemies.get(counter));
+                    selectAction(activePlayer, enemyCharacter);
                     isValid = true;
                 } catch (NoSuchElementException e) {
                     System.out.println("Try again");
                 }
             }
-            if (enemies.get(counter).getHealth() <= 0) {
-                enemies.get(counter).setHealth(0);
-                //printVictoryMessage();
+            if (enemyCharacter.getHealth() <= 0) {
+                enemyCharacter.setHealth(0);
+                printVictoryMessage();
                 System.out.println();
-                enemies.remove(counter);
+                enemies.remove(enemyCharacter);
                 break;
             }
-            System.out.println(enemies.get(counter).getName() + " has taken damage: " + enemies.get(counter).getHealth());
-            enemies.get(counter).attack( enemies.get(counter),activePlayer);
+            System.out.println(enemyCharacter.getName() + " has taken damage: " + enemyCharacter.getHealth());
+            enemyCharacter.attack(enemyCharacter, activePlayer);
             if (activePlayer.getHealth() <= 0) {
                 activePlayer.setHealth(0);
                 printDefeatMessage();
@@ -105,9 +100,7 @@ public class Game {
                 break;
             }
             System.out.println(activePlayer.getName() + " has taken damage: " + activePlayer.getHealth());
-
         }
-
     }
 
     public boolean isGameOver() {
@@ -137,29 +130,46 @@ public class Game {
         actionScanner.close();
     }
 
-    private ArrayList<NPC> makeEnemies() {
+    private void makeEnemies() {
         int numberOfEnemies = (int) ((Math.random() * (14 - 7)) + 7);
-        ArrayList<NPC> enemies = new ArrayList<>(numberOfEnemies);
+        enemies = new ArrayList<>(numberOfEnemies);
         for (int i = 0; i < numberOfEnemies; i++) {
             enemies.add(getRandomEnemy());
         }
+        enemies.add(new Boss());
+    }
+
+    private ArrayList<NPC> getEnemies() {
         return enemies;
     }
 
     private NPC getRandomEnemy() {
-        NPC[] enemyTypes = new NPC[]{ new Officer(), new Soldier()};
+        NPC[] enemyTypes = new NPC[]{new Officer(), new Soldier()};
         return enemyTypes[(int) (Math.random() * enemyTypes.length)];
     }
 
-//    private static void printVictoryMessage() {
-//        System.out.println(/*some image*/);
-//        System.out.println("Congratulations, " + mainCharacter.getName() + "you won!");
-//    }
+    private void printVictoryMessage() {
+        System.out.println(/*some image*/);
+        if(isFirstEnemy) {
+            System.out.println("Todd: Yes, you're definitely him.");
+            System.out.println(mainCharacter.getName() + " : Explain what prophecy you're talking about?");
+            System.out.println("Todd: A long time ago, when Phil Oxlong killed Lord Gabe, Lord Gabe's soothsayer predicted that the time would come and he would be possessed by a man with the name " + mainCharacter.getName() + ", and then there would be peace. And you came, I knew it. It's not an easy road for you stranger, but I'll try to help you in any way I can. Keep your " + mainCharacter.getWeaponsName() + ", and follow this path, it will lead you to Phil Oxlong. Good luck");
+            isFirstEnemy = false;
+        } else if(getEnemies().size() == 1) {
+            System.out.println("Todd: I knew you would kill them all. Now, you need to kill Phil Oxlong. But you are still not as powerful as him. Here, take the poison of health, it should level the odds. Good luck.");
+            //Give positions based on level
+        } else if(getEnemies().size() == 0) {
+            System.out.println("Todd: Yes, you did it. Thank you");
+            System.out.println("You win!");
+            System.exit(0);
+        }
+        System.out.println("Congratulations, " + mainCharacter.getName() + "you won!");
+    }
 
     private static void printDefeatMessage() {
         System.out.println(/*some image*/);
         System.out.println("You died. Try again");
-
+        System.exit(0);
     }
 
     private void printPlayerStats(PlayableCharacter c) {

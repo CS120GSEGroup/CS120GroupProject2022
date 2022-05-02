@@ -6,6 +6,15 @@ public class PlayableCharacter extends GameCharacter {
     int potions;
     int specialCounter;
 
+    public String getWeaponsName() {
+        return weaponsName;
+    }
+
+    public void setWeaponsName(String weaponsName) {
+        this.weaponsName = weaponsName;
+    }
+
+    String weaponsName;
 
     public int getPotions() {
         return potions;

@@ -11,6 +11,7 @@ public class Mage extends PlayableCharacter {
         this.setLevel(1);
         this.setPotions(4);
         this.setSpecialCounter(0);
+        this.setWeaponsName("wand and poisons");
     }
 
 //    public Mage(int health, int damage, int level, int potions, int specialCounter) {

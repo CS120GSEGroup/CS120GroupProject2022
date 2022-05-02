@@ -1,19 +1,14 @@
 package RPGGame.characters;
 
 public class Archer extends PlayableCharacter {
-
-
-
     public Archer() {
         this.setHealth(40);
         this.setDamage(6);
         this.setLevel(1);
         this.setSpecialCounter(0);
+        this.setWeaponsName("bow and arrows");
 
     }
-
-
-
 
     @Override
     public void attack(NPC opponent, PlayableCharacter activePlayer) {
