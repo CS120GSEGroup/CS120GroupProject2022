@@ -14,11 +14,6 @@ public class GameConsole {
 
     }
 
-//    public GameConsole() throws FileNotFoundException {
-//        Scanner textScanner = new Scanner(new FileInputStream("scenario.txt"));
-//
-//    }
-
     public void run() {
         Scanner mainScanner = new Scanner(System.in);
         printMainMenu();
@@ -64,7 +59,7 @@ public class GameConsole {
 
     private void printCharacterMenu() {
         System.out.println("Select character type");
-        System.out.println("(f) Soldier");
+        System.out.println("(f) Fighter");
         System.out.println("(a) Archer");
         System.out.println("(m) Mage");
     }
