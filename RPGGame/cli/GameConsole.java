@@ -1,14 +1,14 @@
 package RPGGame.cli;
 
 
-import RPGGame.characters.PlayableCharacter;
+import RPGGame.characters.*;
 import RPGGame.main.Game;
+import RPGGame.main.Narrator;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class GameConsole {
-
-    Game game;
 
     public GameConsole() {
 
@@ -16,110 +16,126 @@ public class GameConsole {
 
     public void run() {
         Scanner mainScanner = new Scanner(System.in);
-        printMainMenu();
-        String selection = mainScanner.next();
 
         while (true) {
+            printMainMenu();
+            String selection = mainScanner.next();
             switch (selection) {
                 case "p" -> start();
                 case "c" -> printCredits();
                 case "e" -> System.exit(0);
-                default -> System.out.println("That isn't a valid choice");
+                default -> invalidChoice();
             }
-            printMainMenu();
-            selection = mainScanner.next();
         }
     }
+
+
 
     private void start() {
         Scanner gameScanner = new Scanner(System.in);
-        this.game = new Game();
-
-        while (this.game.getDifficultyLevel() < 1 || this.game.getDifficultyLevel() > 3) {
-            printDifficultyMenu();
-            this.game.setDifficultyLevel(gameScanner.next());
-        }
-        System.out.println("You've chosen the " + this.game.difficultyToString() + " way.");
+        Game game = new Game();
+        game.selectDifficultyLevel();
+        System.out.println();
+        game.selectMainCharacter();
+        System.out.println();
 
 
-        while (this.game.getMainCharacter() == null) {
-            printCharacterMenu();
-            this.game.setMainCharacter(gameScanner.next());
+        while (!game.isGameOver()) {
+            PlayableCharacter player = game.getMainCharacter();
 
-        }
-        PlayableCharacter player = new PlayableCharacter(game.getMainCharacter());
+            Narrator.printIntro();
+            String name = gameScanner.next();
 
-        while(game.getEnemies().size() > 1){
-            System.out.println("Todd: Hey you, finally awake. You should be new here. What's your name stranger?");
-            System.out.println("-----Select Name-----");
-            player.setName(gameScanner.next());
+            Narrator.setPlayerName(name);
+            Narrator.setPlayerWeapon(game.getMainCharacter().weaponToString());
+            player.setName(name);
 
-            System.out.println("\nWait... you said " + player.getName() +
-                    " ?\nSo it IS you. You're the man of prophecy who's supposed to lead us to freedom...\n No time, here, take my "
-                    + player.weaponToString() +
-                    "\nthey will be useful to you. Defeat these guards and I will explain everything to you.");
+
+            Narrator.printLevelZeroText();
             moveForward();
             player.printPlayerStats();
-
             moveForward();
             game.battle();
-            System.out.println("Todd: Yes, you're definitely him.\n");
+            System.out.println();
 
-            System.out.println(player.getName() + " : Explain what prophecy you're talking about?\n");
-            moveForward();
-            System.out.println("Todd: A long time ago, when Phil Oxlong killed Lord Gabe, Lord Gabe's soothsayer " +
-                    "\npredicted that the time would come and he would be possessed by a man with the name \n"
-                    + player.getName() + ", and then there would be peace. And you came, I knew it. It's not an easy road" +
-                    "\n for you stranger, but I'll try to help you in any way I can. Keep your \n"
-                    + player.weaponToString() + ", and follow this path, it will lead you to Phil Oxlong. " +
-                    "\nGood luck");
+            Narrator.printLevelOneText();
+            System.out.println();
+            game.battle();
+            System.out.println();
+
+            Narrator.printLevelTwoText();
+            if (!game.solvePuzzle()) {
+                Boss sphinx = new Boss(100, 20, 50, 0, "Sphinx");
+                Narrator.puzzleFailed();
+                game.bossBattle(sphinx, player);
+            } else {
+                Narrator.puzzleSolved();
+                player.setSpecialCounter(player.getSpecialCounter() + 1);
+                System.out.println("You gained a special attack!");
+            }
         }
+        game.bossBattle((Boss) game.getEnemies().get(0), game.getMainCharacter());
 
 
-        if (game.getEnemies().size() == 0) {
-            System.exit(0);
-
-        }
     }
 
-    private void printMainMenu() {
+    public static void moveForward() throws NoSuchElementException {
+        Scanner ok = new Scanner(System.in);
+        System.out.println("\nPress 'o' to continue");
+        String selection = ok.nextLine();
+        while (!selection.equals("o")) {
+            System.out.println("Press 'o' to continue");
+            selection = ok.nextLine();
+        }
+        System.out.println();
+    }
+
+    public static void invalidChoice() {
+        System.out.println("Invalid choice");
+    }
+
+    public static void printMainMenu() {
         System.out.println("------Elden Square------");
         System.out.println("(p) Play");
         System.out.println("(c) Credits");
         System.out.println("(e) Exit");
     }
 
-    private void printCharacterMenu() {
-        System.out.println("Select character type");
-        System.out.println("(f) Fighter");
-        System.out.println("(a) Archer");
-        System.out.println("(m) Mage");
-    }
-
-    private void printDifficultyMenu() {
+    public static void printDifficultyMenu() {
         System.out.println("Select difficulty level");
-        System.out.println("(e) Easy");
-        System.out.println("(m) Medium");
-        System.out.println("(h) Hard");
+        System.out.println(Narrator.CYAN + "(e) Easy" + Narrator.ANSI_RESET);
+        System.out.println(Narrator.PURPLE + "(m) Medium" + Narrator.ANSI_RESET);
+        System.out.println(Narrator.RED + "(h) Hard" + Narrator.ANSI_RESET);
     }
 
-    private void printCredits() {
+    public static void printCharacterMenu() {
+        System.out.println("Select character type:\n");
+        System.out.println();
+        System.out.println(Narrator.RED + "Warrior" + Narrator.ANSI_RESET + "\t\t\t\t\t\t\t\t" + Narrator.GREEN + "Archer" + Narrator.ANSI_RESET + "\t\t\t\t\t\t\t\t" + Narrator.CYAN + "Mage" + Narrator.ANSI_RESET + "\t\t\t\t\t\t");
+        System.out.println("Level: 1\t\t\t\t\t\t\t" + "Level: 1\t\t\t\t\t\t\t" + "Level: 1");
+        System.out.println("Health: 50\t\t\t\t\t\t\t" + "Health: 40\t\t\t\t\t\t\t" + "Health: 30");
+        System.out.println("Damage: 15\t\t\t\t\t\t\t" + "Damage: 10\t\t\t\t\t\t\t" + "Damage: 6");
+        System.out.println("Potions: 2\t\t\t\t\t\t\t " + "\bPotions: 3\t\t\t\t\t\t\t" + "Potions: 5");
+        System.out.println("Specials available: 0\t\t\t\t" + "Specials available: 0\t\t\t\t" + "Specials available: 0");
+        System.out.println("Weapon: Sword and Shield\t\t\t" + "Weapon: Bow and Arrows\t\t\t\t" + "Weapon: Staff and Spellbook");
+        System.out.println("Special Move: Berserker Rage\t\t" + "Special Move: Headshot\t\t\t\t" + "Special Move: Headshot\n");
+        System.out.println("Press" + Narrator.RED + " (w) " + Narrator.ANSI_RESET + "to choose the warrior\t\t" + "Press" + Narrator.GREEN + " (a) " + Narrator.ANSI_RESET + "to choose the archer\t\t" + "Press " + Narrator.CYAN + " (m) " + Narrator.ANSI_RESET + "to choose the archer");
+    }
+
+    public static void printActionMenu() {
+        System.out.println("---Action Menu---");
+        System.out.println("Press (1) to attack");
+        System.out.println("Press (2) to attempt special ability");
+        System.out.println("Press (3) to heal");
+        System.out.println("Press (4) to block");
+        System.out.println("Press (5) to view stats");
+    }
+
+    public void printCredits() {
         System.out.println("Scenario: Surik Simonyan");
         System.out.println("Main Developer: Georgi Panosyan");
         System.out.println("Developer: Erik Khalatyan");
     }
 
-    public static void moveForward() {
-        Scanner ok = new Scanner(System.in);
-        String ANSI_RED_BACKGROUND
-                = "\u001B[41m";
-        System.out.println("\n" + ANSI_RED_BACKGROUND+"Press 'o' to continue");
-        String selection = ok.next();
-        while (!selection.equals("o")) {
-            System.out.println("\n" + "\u001bPress 'o' to continue");
-            selection = ok.next();
-        }
 
-
-    }
 }

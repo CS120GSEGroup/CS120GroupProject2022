@@ -3,32 +3,30 @@ package RPGGame.characters;
 
 public class Archer extends PlayableCharacter {
     public Archer() {
-        this.setHealth(40);
-        this.setDamage(10);
+        this.setHealth((int)(Math.random()*20)+30);
+        this.setDamage((int)(Math.random()*15)+10);
         this.setLevel(1);
         this.setPotions(3);
         this.setSpecialCounter(0);
 
     }
 
-    public Archer(PlayableCharacter p) {
-        super(p);
-    }
 
     @Override
     public void attack(NPC opponent, PlayableCharacter activePlayer) {
-        int criticalHitVector = (int) ((Math.random() * 3) + 5);
+        int criticalHitVector = (int) ((Math.random() * 5) + 5);
         if (criticalHitVector % 5 == 0) {
             int temp = activePlayer.getDamage();
-
+            int difference = opponent.getHealth() - opponent.takeDamage(activePlayer);
             activePlayer.setDamage(activePlayer.getDamage() * 2);
             opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
             activePlayer.setDamage(temp);
-            System.out.println("Crippling shot!");
+            System.out.println("Crippling shot! " + difference);
             setSpecialCounter(getSpecialCounter() + 1);
         } else {
+            int difference = opponent.getHealth() - opponent.takeDamage(activePlayer);
             opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
-            System.out.println("Melee Hit!");
+            System.out.println("Melee Hit! " + difference);
         }
         setSpecialCounter(getSpecialCounter() + 1);
     }

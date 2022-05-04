@@ -57,9 +57,12 @@ public abstract class GameCharacter implements Fightable {
     }
 
 
-
     public abstract void printPlayerStats();
 
+    public final void printImage() {
+        System.out.println("image");
+        this.printPlayerStats();
+    }
 
 
 }

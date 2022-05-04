@@ -1,6 +1,8 @@
 package RPGGame.characters;
 
 
+import RPGGame.main.Narrator;
+
 public class PlayableCharacter extends GameCharacter {
 
     int potions;
@@ -54,25 +56,34 @@ public class PlayableCharacter extends GameCharacter {
         return 0;
     }
 
+    @Override
+    public void block(GameCharacter c) {
+        c.setDamage(c.getDamage() / 3);
+        System.out.println("Blocked the hit");
+    }
+
     public void useSpecialAbility(NPC opponent, PlayableCharacter activePlayer) {
     }
 
 
-
     public void printPlayerStats() {
         System.out.println("Character Stats: ");
-        System.out.println(this.characterToString());
+        if (this.getName() != null) {
+            System.out.println(Narrator.RED + this.getName() + " the " + this.characterToString() + Narrator.ANSI_RESET);
+        } else {
+            System.out.println(Narrator.RED + this.characterToString() + Narrator.ANSI_RESET);
+        }
         System.out.println("Level: " + this.getLevel());
         System.out.println("Health: " + this.getHealth());
         System.out.println("Damage: " + this.getDamage());
         System.out.println("Potions: " + this.getPotions());
         System.out.println("Specials available: " + this.getSpecialCounter());
         System.out.println("Weapon: " + this.weaponToString());
-        System.out.println("Special Move: " + this.specialMoveToString());
+        System.out.println("Special Move: " + Narrator.RED + this.specialMoveToString() + Narrator.ANSI_RESET);
     }
 
     public String specialMoveToString() {
-       return "special";
+        return "special";
     }
 
     public String characterToString() {
@@ -83,8 +94,5 @@ public class PlayableCharacter extends GameCharacter {
         return "";
     }
 
-    public void printImage(){
-        System.out.println("Image");
-        this.printPlayerStats();
-    }
+
 }

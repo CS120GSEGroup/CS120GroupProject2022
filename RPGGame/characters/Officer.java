@@ -15,4 +15,8 @@ public class Officer extends NPC {
     }
 
 
+
+    public String toString(){
+        return "Officer";
+    }
 }

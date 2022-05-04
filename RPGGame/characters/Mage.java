@@ -11,6 +11,14 @@ public class Mage extends PlayableCharacter {
         this.setSpecialCounter(0);
     }
 
+    public int getSpecialCounter() {
+        return specialCounter;
+    }
+
+    public void setSpecialCounter(int specialCounter) {
+        this.specialCounter = specialCounter;
+    }
+
 
     @Override
     public void attack(NPC opponent, PlayableCharacter activePlayer) {
@@ -47,14 +55,6 @@ public class Mage extends PlayableCharacter {
         }
     }
 
-
-    public int getSpecialCounter() {
-        return specialCounter;
-    }
-
-    public void setSpecialCounter(int specialCounter) {
-        this.specialCounter = specialCounter;
-    }
 
     @Override
     public String characterToString() {

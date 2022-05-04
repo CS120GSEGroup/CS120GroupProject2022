@@ -6,5 +6,7 @@ public interface Fightable {
 
     int takeDamage(GameCharacter c);
 
+    void block(GameCharacter c);
+
 
 }

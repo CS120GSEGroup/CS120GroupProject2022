@@ -9,9 +9,6 @@ public class Soldier extends NPC {
         this.setName("Soldier");
     }
 
-    public Soldier(int health, int attackPoints, int level) {
-        super(health, attackPoints, level);
-    }
 
 
 
