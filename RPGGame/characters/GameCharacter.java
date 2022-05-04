@@ -56,9 +56,9 @@ public abstract class GameCharacter implements Fightable {
         this.level = level;
     }
 
-    public void useSpecialAbility(GameCharacter opponent, GameCharacter activePlayer) {
 
-    }
+
+    public abstract void printPlayerStats();
 
 
 

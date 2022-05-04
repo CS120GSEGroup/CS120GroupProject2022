@@ -4,7 +4,7 @@ public interface Fightable {
 
     void attack(NPC opponent, PlayableCharacter activePlayer);
 
-    int takeDamage(GameCharacter activePlayer);
+    int takeDamage(GameCharacter c);
 
 
 }

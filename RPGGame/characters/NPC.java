@@ -25,8 +25,16 @@ public class NPC extends GameCharacter {
         }
     }
 
+    public void printPlayerStats() {
+        System.out.println(this.getName());
+        System.out.println("Level: " + this.getLevel());
+        System.out.println("Health: " + this.getHealth());
+        System.out.println("Damage: " + this.getDamage());
+
+    }
+
     @Override
-    public int takeDamage(GameCharacter activePlayer) {
-        return 0;
+    public int takeDamage(GameCharacter c) {
+        return c.getDamage();
     }
 }

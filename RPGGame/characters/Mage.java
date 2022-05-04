@@ -2,49 +2,51 @@ package RPGGame.characters;
 
 public class Mage extends PlayableCharacter {
 
-    private int armorPercentage;
-    private int specialCounter;
 
     public Mage() {
         this.setHealth(30);
-        this.setDamage(10);
+        this.setDamage(5);
         this.setLevel(1);
         this.setPotions(4);
         this.setSpecialCounter(0);
-        this.setWeaponsName("wand and poisons");
     }
 
-//    public Mage(int health, int damage, int level, int potions, int specialCounter) {
-//        super(health, damage, level, potions);
-//        this.armorPercentage = level * (health / 3);
-//        this.specialCounter = specialCounter;
-//    }
 
     @Override
     public void attack(NPC opponent, PlayableCharacter activePlayer) {
-        opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
-    }
-
-    @Override
-    public int takeDamage(GameCharacter activePlayer) {
-        return (activePlayer.getDamage() * (100 - armorPercentage) / 100);
-    }
-
-
-    public void useSpecialAbility(GameCharacter opponent, Mage activePlayer) {
-        if (activePlayer.getSpecialCounter()%6 == 0) {
-            opponent.setHealth(opponent.getHealth()/3);
-            System.out.println("FIREBALL!");
+        int criticalHitVector = (int) ((Math.random() * 8) + 4);
+        if (criticalHitVector % 4 == 0) {
+            int temp = activePlayer.getDamage();
+            activePlayer.setDamage((activePlayer.getDamage() * 5) / 3);
+            opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
+            activePlayer.setDamage(temp);
+            System.out.println("Lightning attack!");
+            setSpecialCounter(getSpecialCounter() + 1);
+        } else {
+            opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
+            System.out.println("Melee Hit!");
         }
-
-
     }
-
 
     @Override
-    public String toString() {
-        return this.getName() + " the Mage";
+    public int takeDamage(GameCharacter c) {
+        return (int) (c.getDamage() * (100 - (this.getLevel() * (Math.random() + 1)) / 100));
     }
+
+    @Override
+    public void useSpecialAbility(NPC opponent, PlayableCharacter activePlayer) {
+        if (activePlayer.getSpecialCounter() > 0) {
+            opponent.setHealth(opponent.getHealth() / 3);
+            System.out.println("FIREBALL!");
+        } else {
+            int originalDamage = activePlayer.getDamage();
+            activePlayer.setDamage(activePlayer.getDamage() * activePlayer.getLevel());
+            attack(opponent, activePlayer);
+            System.out.println("Firey burst");
+            activePlayer.setDamage(originalDamage);
+        }
+    }
+
 
     public int getSpecialCounter() {
         return specialCounter;
@@ -52,5 +54,20 @@ public class Mage extends PlayableCharacter {
 
     public void setSpecialCounter(int specialCounter) {
         this.specialCounter = specialCounter;
+    }
+
+    @Override
+    public String characterToString() {
+        return "Mage";
+    }
+
+    @Override
+    public String specialMoveToString() {
+        return "Fireball";
+    }
+
+    @Override
+    public String weaponToString() {
+        return "Staff and Spellbook";
     }
 }
