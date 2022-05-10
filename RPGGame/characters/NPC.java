@@ -12,7 +12,7 @@ public class NPC extends GameCharacter {
 
     @Override
     public void attack(NPC opponent, PlayableCharacter activePlayer) {
-        int criticalHitVector = (int) ((Math.random() * 1) + opponent.getLevel());
+        int criticalHitVector = (int) ((Math.random() * opponent.getLevel()) + 1);
         if (criticalHitVector % 6 == 0) {
             int temp = opponent.getDamage();
             int difference = activePlayer.getHealth() - activePlayer.takeDamage(opponent);
@@ -21,9 +21,14 @@ public class NPC extends GameCharacter {
             opponent.setDamage(temp);
             System.out.println("Critical Hit! " + activePlayer.takeDamage(opponent));
         } else {
+            criticalHitVector =(int) ((Math.random() * activePlayer.getLevel()) + 1);
             int difference = activePlayer.getHealth() - activePlayer.takeDamage(opponent);
-            activePlayer.setHealth(difference);
-            System.out.println("Hit! "+ activePlayer.takeDamage(opponent));
+            if (criticalHitVector % 2 == 0) {
+                activePlayer.setHealth(difference);
+                System.out.println("Hit! "+ activePlayer.takeDamage(opponent));
+            }else
+                System.out.println("Miss");
+
         }
     }
 

@@ -54,6 +54,8 @@ public class Narrator {
                 + getPlayerWeapon() + ", and follow this path, it will lead you to Phil Oxlong. " +
                 "\nGood luck");
         System.out.println();
+        GameConsole.moveForward();
+
     }
 
     public static void printLevelTwoText() {
@@ -67,6 +69,8 @@ public class Narrator {
         System.out.println("Todd: Well, now we just have to make it through to the top of the tower. " +
                 "\nTake out the rest of the guards around Oxlong's chambers and we will be one step closer to freedom");
         System.out.println();
+        GameConsole.moveForward();
+
     }
 
     public static void printLevelFourText(){
@@ -74,6 +78,8 @@ public class Narrator {
                 "\nyou aren't particularly exceptional...");
         GameConsole.moveForward();
         System.out.println("Nevertheless, prepare to die!");
+        GameConsole.moveForward();
+
     }
     public static void printPuzzle() {
         System.out.println();
@@ -84,11 +90,14 @@ public class Narrator {
         GameConsole.moveForward();
         System.out.println("What walks on four legs in the morning, two legs in the day, " +
                 "\nand three legs in the evening?");
+
     }
 
     public static void puzzleSolved() {
         System.out.println("Todd: WOW, you solved it!" +
                 "\nLet's get going before the Sphinx changes his mind");
+        GameConsole.moveForward();
+
     }
 
     public static void puzzleFailed() {

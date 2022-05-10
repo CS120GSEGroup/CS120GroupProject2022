@@ -4,7 +4,6 @@ package RPGGame.cli;
 import RPGGame.characters.*;
 import RPGGame.main.Game;
 import RPGGame.main.Narrator;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class GameConsole {
@@ -64,7 +63,6 @@ public class GameConsole {
             System.out.println();
 
             Narrator.printLevelTwoText();
-            moveForward();
             if (!game.solvePuzzle()) {
                 Boss sphinx = new Boss(100, 20, 50, 0, "Sphinx");
                 Narrator.puzzleFailed();
@@ -77,10 +75,8 @@ public class GameConsole {
             System.out.println();
             game.levelUp();
             System.out.println();
-            moveForward();
             Narrator.printLevelThreeText();
             System.out.println();
-            moveForward();
             while (game.getEnemies().size() > 1) {
                 game.battle();
                 game.levelUp();
@@ -96,12 +92,12 @@ public class GameConsole {
 
     }
 
-    public static void moveForward() throws NoSuchElementException {
+    public static void moveForward() {
         Scanner ok = new Scanner(System.in);
-        System.out.println("\nPress (o) to continue");
+        System.out.println("\nPress (Enter) to continue");
         String selection = ok.nextLine();
-        while (!selection.equals("o")) {
-            System.out.println("Press (o) to continue");
+        while (!selection.equals("")) {
+            System.out.println("Press (Enter) to continue");
             selection = ok.nextLine();
         }
         System.out.println();

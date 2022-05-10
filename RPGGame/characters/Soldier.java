@@ -2,9 +2,9 @@ package RPGGame.characters;
 
 public class Soldier extends NPC {
     public Soldier() {
-        this.setHealth((int) (Math.random()*10)+5);
-        this.setDamage(6);
-        this.setLevel(1);
+        this.setLevel((int) (Math.random() * 3) + 5);
+        this.setHealth((this.getLevel() + 10));
+        this.setDamage((this.getLevel() + 3));
         this.setName("Soldier");
     }
 }

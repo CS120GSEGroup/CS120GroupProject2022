@@ -5,12 +5,12 @@ public class Warrior extends PlayableCharacter {
     private int armorPercentage;
 
     public Warrior() {
-        this.setHealth(50);
-        this.setDamage(15);
+        this.setHealth((this.getLevel() + 25) * 2);
+        this.setDamage((this.getLevel() + 8) * 2);
         this.setLevel(1);
         this.setPotions(2);
-        this.setSpecialCounter((int)(Math.random()*5));
-        this.setArmorPercentage(getLevel()*5);
+        this.setSpecialCounter((int) (Math.random() * 1));
+        this.setArmorPercentage(getLevel() * 5);
     }
 
 
@@ -27,30 +27,27 @@ public class Warrior extends PlayableCharacter {
         int criticalHitVector = (int) ((Math.random() * 6) + 4);
         if (criticalHitVector % 4 == 0) {
             int temp = activePlayer.getDamage();
-            int difference = opponent.getHealth() - opponent.takeDamage(activePlayer);
-            activePlayer.setDamage(activePlayer.getDamage() +5);
+            activePlayer.setDamage(activePlayer.getDamage() + 5);
             opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
+            System.out.println("Critical Hit! " + activePlayer.getDamage());
             activePlayer.setDamage(temp);
-            System.out.println("Critical Hit! " + difference);
         } else {
-            int difference = opponent.getHealth() - opponent.takeDamage(activePlayer);
             opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
-            System.out.println("Hit! " + difference);
+            System.out.println("Hit! " + activePlayer.getDamage());
         }
         this.setSpecialCounter(getSpecialCounter() + 1);
     }
 
     @Override
     public int takeDamage(GameCharacter c) {
-
-       return (this.getDamage() * (100 - getArmorPercentage()) / 100);
+        return (c.getDamage() * (100 - getArmorPercentage()) / 100);
     }
 
     @Override
     public void useSpecialAbility(NPC opponent, PlayableCharacter activePlayer) {
         if (getSpecialCounter() != 0) {
             System.out.println("BERSERK RAGE!");
-            activePlayer.setDamage(activePlayer.getDamage()*2);
+            activePlayer.setDamage(activePlayer.getDamage() * 2);
             attack(opponent, activePlayer);
             attack(opponent, activePlayer);
             attack(opponent, activePlayer);

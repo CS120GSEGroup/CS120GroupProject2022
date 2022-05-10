@@ -115,30 +115,36 @@ public class Game {
         Scanner actionScanner = new Scanner(System.in);
         GameConsole.printActionMenu();
         int selection = 0;
-        while (selection < 1 || selection > 5) {
-            selection = actionScanner.nextInt();
-            switch (selection) {
-                case 1 -> activePlayer.attack(opponent, activePlayer);
+        try {
+            while (selection < 1 || selection > 5) {
+                selection = actionScanner.nextInt();
+                switch (selection) {
+                    case 1 -> activePlayer.attack(opponent, activePlayer);
 
-                case 2 -> activePlayer.useSpecialAbility(opponent, activePlayer);
+                    case 2 -> activePlayer.useSpecialAbility(opponent, activePlayer);
 
-                case 3 -> {
-                    activePlayer.heal();
-                    opponent.setDamage(0);
+                    case 3 -> {
+                        activePlayer.heal();
+                        opponent.setDamage(0);
+                    }
+                    case 4 -> activePlayer.block(opponent);
+
+                    case 5 -> {
+                        activePlayer.printPlayerStats();
+                        opponent.setDamage(0);
+                    }
+                    default -> GameConsole.invalidChoice();
                 }
-                case 4 -> activePlayer.block(opponent);
-
-                case 5 -> {
-                    activePlayer.printPlayerStats();
-                    opponent.setDamage(0);
-                }
-
-                default -> GameConsole.invalidChoice();
             }
+        } catch (NoSuchElementException e) {
+            System.out.println();
+            GameConsole.invalidChoice();
+            System.out.println();
+            selectAction(activePlayer, opponent);
         }
     }
 
-    public static void selectAction(Boss boss, PlayableCharacter activePlayer) throws NoSuchElementException {
+    public static void selectAction(Boss boss, PlayableCharacter activePlayer) {
         int selection = (int) ((Math.random() * 4) + 1);
         switch (selection) {
             case 1 -> boss.attack(boss, activePlayer);
@@ -160,10 +166,8 @@ public class Game {
         setEnemies(new ArrayList<>(numberOfEnemies));
         for (int i = 0; i < numberOfEnemies; i++) {
             getEnemies().add(generateRandomEnemy());
-            getEnemies().get(i).setHealth(getEnemies().get(i).getHealth() + 5 * difficultyLevel);
         }
         getEnemies().add(new Boss());
-        getEnemies().get(getEnemies().size() - 1).setHealth(getEnemies().get(getEnemies().size() - 1).getHealth() + 10 * difficultyLevel);
         System.out.println("[DEBUG] Enemies count: " + numberOfEnemies + " \n" + "Enemies in array: " + getEnemies().size());
     }
 
@@ -176,17 +180,22 @@ public class Game {
         while (true) {
             selectAction(player, enemy);
             printDamageReport(enemy);
+            System.out.println();
             if (isBattleOver(enemy, player)) {
+                announceResult(determineVictor(player, enemy));
+                GameConsole.moveForward();
                 break;
             }
             enemy.attack(enemy, player);
             printDamageReport(player);
+            System.out.println();
             if (isBattleOver(enemy, player)) {
+                announceResult(determineVictor(player, enemy));
                 break;
             }
             enemy.setDamage(t1);
         }
-        announceResult(determineVictor(player, enemy));
+
     }
 
     private boolean isBattleOver(NPC n, PlayableCharacter p) {
@@ -201,22 +210,23 @@ public class Game {
         boss.printImage();
         int t1 = player.getDamage();
         int t2 = boss.getDamage();
-        boolean flag = false;
-        while (!flag) {
+        while (true) {
             selectAction(player, boss);
             printDamageReport(boss);
             if (isBattleOver(boss, player)) {
-                flag = true;
+                announceResult(determineVictor(player, boss));
+                GameConsole.moveForward();
+                break;
             }
             selectAction(boss, player);
             printDamageReport(player);
             if (isBattleOver(boss, player)) {
-                flag = true;
+                announceResult(determineVictor(player, boss));
+                break;
             }
             player.setDamage(t1);
             boss.setDamage(t2);
         }
-        announceResult(determineVictor(player, boss));
     }
 
 
@@ -226,46 +236,39 @@ public class Game {
 
     private GameCharacter determineVictor(GameCharacter p, GameCharacter o) {
         if (o.getHealth() <= 0) {
-            death(o);
+            getEnemies().remove(0);
             return p;
-        } else if (p.getHealth() <= 0)
-            death(p);
-        return o;
+        } else
+            return o;
 
     }
 
-    public void addPotion(){
-        getMainCharacter().setPotions(getMainCharacter().getPotions()+1);
+    public void addPotion() {
+        getMainCharacter().setPotions(getMainCharacter().getPotions() + 1);
     }
 
-    public void levelUp(){
+    public void levelUp() {
         addPotion();
-        getMainCharacter().setLevel(getMainCharacter().getLevel()+1);
-        System.out.println("You've leveled up! +1 Potions +1 Level");
+        getMainCharacter().setLevel(getMainCharacter().getLevel() + 1);
+        System.out.println(Narrator.CYAN + "You've leveled up! +1 Potions +1 Level" + Narrator.ANSI_RESET);
+        GameConsole.moveForward();
     }
 
-
-
-    public void death(GameCharacter g) {
-        if (g.equals(getMainCharacter())) {
-            g.setHealth(0);
-        } else if (g instanceof NPC) {
-            g.setHealth(0);
-            getEnemies().remove(g);
-        }
-    }
 
     public static void printDamageReport(GameCharacter g) {
+        if (g.getHealth() < 0) {
+            g.setHealth(0);
+        }
         System.out.println(g.getName() + " has " + g.getHealth() + " Health Points left.");
     }
 
     public static void announceResult(GameCharacter g) {
-        if (g instanceof PlayableCharacter && g.getHealth() <= 0) {
+        if (g instanceof PlayableCharacter) {
+            System.out.println("You win!");
+        } else if (g instanceof NPC) {
             System.out.println("You are dead.");
             System.exit(0);
 
-        } else if (g instanceof NPC && g.getHealth() <= 0) {
-            System.out.println("You win!");
 
         }
     }
