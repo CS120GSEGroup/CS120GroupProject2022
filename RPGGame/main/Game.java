@@ -12,13 +12,13 @@ import java.util.Scanner;
 public class Game {
 
     private PlayableCharacter mainCharacter;
-    private int difficultyLevel;
+    private int difficultyLevel = 0;
     private ArrayList<NPC> enemies;
     private Game saveGame;
 
 
     public Game() {
-        populateEnemiesArray();
+        // populateEnemiesArray();
     }
 
     public Game(Game g) {
@@ -48,7 +48,6 @@ public class Game {
 
     public ArrayList<NPC> getEnemies() {
         return this.enemies;
-
     }
 
     public void setDifficultyLevel(int difficultyLevel) {
@@ -82,18 +81,21 @@ public class Game {
     public void selectDifficultyLevel() {
         Scanner sc = new Scanner(System.in);
         String selection;
-        GameConsole.printDifficultyMenu();
-        selection = sc.nextLine();
-        switch (selection) {
-            case "e" -> this.difficultyLevel = 1;
+        while (this.difficultyLevel == 0) {
+            GameConsole.printDifficultyMenu();
+            selection = sc.nextLine();
+            switch (selection) {
+                case "e" -> this.difficultyLevel = 1;
 
-            case "m" -> this.difficultyLevel = 2;
+                case "m" -> this.difficultyLevel = 2;
 
-            case "h" -> this.difficultyLevel = 3;
+                case "h" -> this.difficultyLevel = 3;
 
-            default -> GameConsole.invalidChoice();
+                default -> GameConsole.invalidChoice();
+            }
         }
         System.out.println("You've chosen the " + this.difficultyToString() + " way.");
+        populateEnemiesArray();
     }
 
     public boolean solvePuzzle() {
@@ -160,12 +162,14 @@ public class Game {
     }
 
     private void populateEnemiesArray() {
-        int numberOfEnemies = (int) ((Math.random() * (7)) + 7);
+        int numberOfEnemies = ((int) (((Math.random() * (7 - 5)) + 5))) * getDifficultyLevel();
         setEnemies(new ArrayList<>(numberOfEnemies));
         for (int i = 0; i < numberOfEnemies; i++) {
             getEnemies().add(generateRandomEnemy());
+            getEnemies().get(i).setHealth(getEnemies().get(i).getHealth() + 5 * difficultyLevel);
         }
         getEnemies().add(new Boss());
+        getEnemies().get(getEnemies().size() - 1).setHealth(getEnemies().get(getEnemies().size() - 1).getHealth() + 10 * difficultyLevel);
     }
 
     public void battle() {

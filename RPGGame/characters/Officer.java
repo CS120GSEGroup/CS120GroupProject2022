@@ -14,8 +14,6 @@ public class Officer extends NPC {
         super(health, attackPoints, level);
     }
 
-
-
     public String toString(){
         return "Officer";
     }
