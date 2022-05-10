@@ -233,6 +233,18 @@ public class Game {
 
     }
 
+    public void addPotion(){
+        getMainCharacter().setPotions(getMainCharacter().getPotions()+1);
+    }
+
+    public void levelUp(){
+        addPotion();
+        getMainCharacter().setLevel(getMainCharacter().getLevel()+1);
+        System.out.println("You've leveled up! +1 Potions +1 Level");
+    }
+
+
+
     public void death(GameCharacter g) {
         if (g.equals(getMainCharacter())) {
             g.setHealth(0);

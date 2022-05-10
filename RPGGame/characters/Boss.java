@@ -40,7 +40,7 @@ public class Boss extends NPC {
 
     @Override
     public int takeDamage(GameCharacter c) {
-        return 0;
+        return c.getDamage();
     }
 
     public void useSpecialAbility(NPC opponent, PlayableCharacter activePlayer) {
