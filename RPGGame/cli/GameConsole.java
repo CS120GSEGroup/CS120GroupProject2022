@@ -29,7 +29,6 @@ public class GameConsole {
     }
 
 
-
     private void start() {
         Scanner gameScanner = new Scanner(System.in);
         Game game = new Game();
@@ -55,14 +54,17 @@ public class GameConsole {
             player.printPlayerStats();
             moveForward();
             game.battle();
+            game.levelUp();
             System.out.println();
 
             Narrator.printLevelOneText();
             System.out.println();
             game.battle();
+            game.levelUp();
             System.out.println();
 
             Narrator.printLevelTwoText();
+            moveForward();
             if (!game.solvePuzzle()) {
                 Boss sphinx = new Boss(100, 20, 50, 0, "Sphinx");
                 Narrator.puzzleFailed();
@@ -72,14 +74,26 @@ public class GameConsole {
                 player.setSpecialCounter(player.getSpecialCounter() + 1);
                 System.out.println("You gained a special attack!");
             }
+            System.out.println();
+            game.levelUp();
+            System.out.println();
+            moveForward();
+            Narrator.printLevelThreeText();
+            System.out.println();
+            moveForward();
             while (game.getEnemies().size() > 1) {
-                player.printPlayerStats();
-                System.out.println();
-                moveForward();
                 game.battle();
+                game.levelUp();
+                if (game.getEnemies().size() > 2) {
+                    System.out.println("Todd: Only " + (game.getEnemies().size() - 1) + " guards left.");
+                }
             }
+            Narrator.printLevelFourText();
             game.bossBattle((Boss) game.getEnemies().get(0), game.getMainCharacter());
+            game.isGameOver();
         }
+
+
     }
 
     public static void moveForward() throws NoSuchElementException {
@@ -139,4 +153,6 @@ public class GameConsole {
         System.out.println("Main Developer: Georgi Panosyan");
         System.out.println("Developer: Erik Khalatyan");
     }
+
+
 }
