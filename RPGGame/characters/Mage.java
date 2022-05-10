@@ -25,20 +25,22 @@ public class Mage extends PlayableCharacter {
         int criticalHitVector = (int) ((Math.random() * 8) + 4);
         if (criticalHitVector % 4 == 0) {
             int temp = activePlayer.getDamage();
+            int difference = opponent.getHealth() - opponent.takeDamage(activePlayer);
             activePlayer.setDamage((activePlayer.getDamage() * 5) / 3);
-            opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
+            opponent.setHealth(difference);
             activePlayer.setDamage(temp);
-            System.out.println("Lightning attack!");
+            System.out.println("Lightning attack!" + opponent.takeDamage(activePlayer));
             setSpecialCounter(getSpecialCounter() + 1);
         } else {
-            opponent.setHealth(opponent.getHealth() - opponent.takeDamage(activePlayer));
-            System.out.println("Melee Hit!");
+            int difference= opponent.getHealth() - opponent.takeDamage(activePlayer);
+            opponent.setHealth(difference);
+            System.out.println("Melee Hit!" + opponent.takeDamage(activePlayer));
         }
     }
 
     @Override
     public int takeDamage(GameCharacter c) {
-        return (int) (c.getDamage() * (100 - (this.getLevel() * (Math.random() + 1)) / 100));
+        return c.getDamage();
     }
 
     @Override

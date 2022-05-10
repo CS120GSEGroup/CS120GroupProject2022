@@ -14,7 +14,6 @@ public class Game {
     private PlayableCharacter mainCharacter;
     private int difficultyLevel = 0;
     private ArrayList<NPC> enemies;
-    private Game saveGame;
 
 
     public Game() {
@@ -25,12 +24,7 @@ public class Game {
         setEnemies(g.getEnemies());
         setDifficultyLevel(g.getDifficultyLevel());
         this.mainCharacter = new PlayableCharacter(g.getMainCharacter());
-        this.saveGame = new Game(g.getSaveGame());
 
-    }
-
-    public Game getSaveGame() {
-        return this.saveGame;
     }
 
 
@@ -242,7 +236,6 @@ public class Game {
     public void death(GameCharacter g) {
         if (g.equals(getMainCharacter())) {
             g.setHealth(0);
-            this.saveGame = new Game(this);
         } else if (g instanceof NPC) {
             g.setHealth(0);
             getEnemies().remove(g);

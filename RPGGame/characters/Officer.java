@@ -10,10 +10,6 @@ public class Officer extends NPC {
 
     }
 
-    public Officer(int health, int attackPoints, int level) {
-        super(health, attackPoints, level);
-    }
-
     public String toString(){
         return "Officer";
     }

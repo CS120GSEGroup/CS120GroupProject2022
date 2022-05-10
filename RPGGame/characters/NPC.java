@@ -17,22 +17,22 @@ public class NPC extends GameCharacter {
             int temp = opponent.getDamage();
             int difference = activePlayer.getHealth() - activePlayer.takeDamage(opponent);
             opponent.setDamage(opponent.getDamage() * 2);
-            activePlayer.setHealth(activePlayer.getHealth() - activePlayer.takeDamage(opponent));
+            activePlayer.setHealth(difference);
             opponent.setDamage(temp);
-            System.out.println("Critical Hit! " + difference);
+            System.out.println("Critical Hit! " + activePlayer.takeDamage(opponent));
         } else {
             int difference = activePlayer.getHealth() - activePlayer.takeDamage(opponent);
-            activePlayer.setHealth(activePlayer.getHealth() - activePlayer.takeDamage(opponent));
-            System.out.println("Hit! "+ difference);
+            activePlayer.setHealth(difference);
+            System.out.println("Hit! "+ activePlayer.takeDamage(opponent));
         }
     }
 
     public void printPlayerStats() {
         System.out.println("Enemy stats:");
-        System.out.println(this.getName());
-        System.out.println("Level: " + this.getLevel());
-        System.out.println("Health: " + this.getHealth());
-        System.out.println("Damage: " + this.getDamage());
+        System.out.println(getName());
+        System.out.println("Level: " + getLevel());
+        System.out.println("Health: " + getHealth());
+        System.out.println("Damage: " + getDamage());
 
     }
 

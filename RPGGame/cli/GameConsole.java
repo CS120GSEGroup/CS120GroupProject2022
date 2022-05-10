@@ -81,10 +81,10 @@ public class GameConsole {
 
     public static void moveForward() throws NoSuchElementException {
         Scanner ok = new Scanner(System.in);
-        System.out.println("\nPress 'o' to continue");
+        System.out.println("\nPress (o) to continue");
         String selection = ok.nextLine();
         while (!selection.equals("o")) {
-            System.out.println("Press 'o' to continue");
+            System.out.println("Press (o) to continue");
             selection = ok.nextLine();
         }
         System.out.println();
