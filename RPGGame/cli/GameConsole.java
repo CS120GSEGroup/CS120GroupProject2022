@@ -4,7 +4,6 @@ package RPGGame.cli;
 import RPGGame.characters.*;
 import RPGGame.main.Game;
 import RPGGame.main.Narrator;
-
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -73,10 +72,14 @@ public class GameConsole {
                 player.setSpecialCounter(player.getSpecialCounter() + 1);
                 System.out.println("You gained a special attack!");
             }
+            while (game.getEnemies().size() > 1) {
+                player.printPlayerStats();
+                System.out.println();
+                moveForward();
+                game.battle();
+            }
+            game.bossBattle((Boss) game.getEnemies().get(0), game.getMainCharacter());
         }
-        game.bossBattle((Boss) game.getEnemies().get(0), game.getMainCharacter());
-
-
     }
 
     public static void moveForward() throws NoSuchElementException {
@@ -136,6 +139,4 @@ public class GameConsole {
         System.out.println("Main Developer: Georgi Panosyan");
         System.out.println("Developer: Erik Khalatyan");
     }
-
-
 }

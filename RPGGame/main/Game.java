@@ -164,6 +164,7 @@ public class Game {
         }
         getEnemies().add(new Boss());
         getEnemies().get(getEnemies().size() - 1).setHealth(getEnemies().get(getEnemies().size() - 1).getHealth() + 10 * difficultyLevel);
+        System.out.println("[DEBUG] Enemies count: " + numberOfEnemies + " \n" + "Enemies in array: " + getEnemies().size());
     }
 
     public void battle() {
