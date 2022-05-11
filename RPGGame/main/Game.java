@@ -145,7 +145,7 @@ public class Game {
     }
 
     public static void selectAction(Boss boss, PlayableCharacter activePlayer) {
-        int selection = (int) ((Math.random() * 4) + 1);
+        int selection = (int) ((Math.random() * 3) + 1);
         switch (selection) {
             case 1 -> boss.attack(boss, activePlayer);
             case 2 -> boss.useSpecialAbility(boss, activePlayer);

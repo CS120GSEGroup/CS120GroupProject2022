@@ -8,10 +8,10 @@ public class Boss extends NPC {
     private int specialCounter;
 
     public Boss() {
-        this.setHealth(70);
-        this.setDamage(10);
-        this.setLevel(10);
-        this.setSpecialCounter(0);
+        this.setHealth(100);
+        this.setDamage(20);
+        this.setLevel(20);
+        this.setSpecialCounter(2);
         this.setName("Phil Oxlong");
     }
 

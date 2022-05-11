@@ -21,7 +21,7 @@ public class NPC extends GameCharacter {
             opponent.setDamage(temp);
             System.out.println("Critical Hit! " + activePlayer.takeDamage(opponent));
         } else {
-            criticalHitVector =(int) ((Math.random() * activePlayer.getLevel()) + 1);
+            criticalHitVector =(int) ((Math.random() * activePlayer.getLevel()));
             int difference = activePlayer.getHealth() - activePlayer.takeDamage(opponent);
             if (criticalHitVector % 2 == 0) {
                 activePlayer.setHealth(difference);
