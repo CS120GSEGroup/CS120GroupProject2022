@@ -1,7 +1,7 @@
 package RPGGame.characters;
 
 
-public class NPC extends GameCharacter {
+public abstract class NPC extends GameCharacter {
 
     public NPC() {
     }

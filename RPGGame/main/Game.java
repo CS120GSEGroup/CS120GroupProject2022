@@ -20,12 +20,6 @@ public class Game {
         // populateEnemiesArray();
     }
 
-    public Game(Game g) {
-        setEnemies(g.getEnemies());
-        setDifficultyLevel(g.getDifficultyLevel());
-        this.mainCharacter = new PlayableCharacter(g.getMainCharacter());
-
-    }
 
 
     public PlayableCharacter getMainCharacter() {

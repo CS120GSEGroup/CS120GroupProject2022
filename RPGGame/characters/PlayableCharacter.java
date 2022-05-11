@@ -3,7 +3,7 @@ package RPGGame.characters;
 
 import RPGGame.main.Narrator;
 
-public class PlayableCharacter extends GameCharacter {
+public abstract class PlayableCharacter extends GameCharacter {
 
     int potions;
     int specialCounter;
