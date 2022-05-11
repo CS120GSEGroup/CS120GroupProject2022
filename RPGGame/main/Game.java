@@ -100,7 +100,7 @@ public class Game {
         for (int i = 3; i > 0; --i) {
             System.out.println("Tell me your answer");
             answer = sc.nextLine();
-            if (answer.equals("man")) {
+            if (answer.equalsIgnoreCase("man")) {
                 isCorrect = true;
                 break;
             } else {
@@ -176,6 +176,8 @@ public class Game {
         NPC enemy = getEnemies().get(0);
         enemy.printImage();
         GameConsole.moveForward();
+        enemy.printPlayerStats();
+        GameConsole.moveForward();
         int t1 = enemy.getDamage();
         while (true) {
             selectAction(player, enemy);
@@ -250,7 +252,9 @@ public class Game {
     public void levelUp() {
         addPotion();
         getMainCharacter().setLevel(getMainCharacter().getLevel() + 1);
+
         System.out.println(Narrator.CYAN + "You've leveled up! +1 Potions +1 Level" + Narrator.ANSI_RESET);
+
         GameConsole.moveForward();
     }
 

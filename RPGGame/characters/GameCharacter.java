@@ -18,9 +18,9 @@ public abstract class GameCharacter implements Fightable {
     }
 
     public GameCharacter(GameCharacter g) {
+        this.setLevel(g.getLevel());
         this.setHealth(g.getHealth());
         this.setDamage(getDamage());
-        this.setLevel(g.getLevel());
         this.setName(g.getName());
     }
 
@@ -59,10 +59,7 @@ public abstract class GameCharacter implements Fightable {
 
     public abstract void printPlayerStats();
 
-    public final void printImage() {
-        System.out.println("image");
-        this.printPlayerStats();
-    }
+    public abstract void printImage();
 
 
 }

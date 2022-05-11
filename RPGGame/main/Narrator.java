@@ -11,6 +11,7 @@ public class Narrator {
     public static final String PURPLE = "\033[0;35m";
     public static final String CYAN = "\033[0;36m";
     public static final String GREEN = "\033[0;32m";
+    public static final String YELLOW = "\033[0;33m";
 
     private static String playerName;
     private static String playerWeapon;
@@ -81,9 +82,54 @@ public class Narrator {
         GameConsole.moveForward();
 
     }
+
+    public static void printVictoryMessage(){
+        System.out.println("Todd: Congratulations, " + getPlayerName()+ " you have freed Elden Square from the grip of the evil Phil Oxlong." +
+                "\nWe will forever be in your debt. Please always feel welcome here.");
+        System.out.println(GREEN+"""
+                :::   :::  ::::::::  :::    :::      :::       :::  ::::::::  ::::    ::: :::\s
+                :+:   :+: :+:    :+: :+:    :+:      :+:       :+: :+:    :+: :+:+:   :+: :+:\s
+                 +:+ +:+  +:+    +:+ +:+    +:+      +:+       +:+ +:+    +:+ :+:+:+  +:+ +:+\s
+                  +#++:   +#+    +:+ +#+    +:+      +#+  +:+  +#+ +#+    +:+ +#+ +:+ +#+ +#+\s
+                   +#+    +#+    +#+ +#+    +#+      +#+ +#+#+ +#+ +#+    +#+ +#+  +#+#+# +#+\s
+                   #+#    #+#    #+# #+#    #+#       #+#+# #+#+#  #+#    #+# #+#   #+#+#    \s
+                   ###     ########   ########         ###   ###    ########  ###    #### ###\s"""+ANSI_RESET);
+        GameConsole.moveForward();
+    }
     public static void printPuzzle() {
         System.out.println();
-        System.out.println("------THE MYSTERY OF THE SPHINX-------");
+        System.out.println(YELLOW+"\t\t------THE MYSTERY OF THE SPHINX-------"+ANSI_RESET);
+        System.out.println(YELLOW+"""
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡶⠿⢝⡕⡦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠖⢉⣫⢢⡍⢩⢝⣾⣠⣇⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⢢⡞⠙⢧⣾⡿⣿⣾⣷⣿⠹⣿⣽⠏⢹⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣼⣇⠀⠱⡄⠘⣧⡂⣿⣿⡿⣿⣸⢯⡝⠀⡎⢹⡖⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⢰⣩⣙⣆⠘⡇⠀⣹⡀⣿⠹⣿⠏⠨⢿⠋⣼⡇⢠⠁⡞⠀⣠⣗⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣧⢸⠀⢹⣷⣿⡆⢹⣉⡹⣎⢠⡏⣧⣼⣰⡅⣠⣿⣿⠫⣢⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⣧⣻⣿⣿⣿⣿⠻⠀⠀⠉⠉⠁⠘⠛⠛⠁⠀⠀⠈⠛⠛⢸⣿⢿⣡⣴⣿⠀⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⡴⠛⠿⣿⣿⣿⣇⣀⣤⡤⠶⠶⠶⠶⠶⠶⠶⠶⠤⢤⣤⣄⣈⣿⣿⡿⠿⠷⢦⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠠⣤⣤⣀⣿⣿⣿⢾⡟⣁⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣙⢿⡟⢹⣿⣇⣀⣀⣈⡆⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⣠⠁⣾⣿⣿⣟⣻⣼⠚⣕⠾⠿⢟⡶⣤⢀⡆⣴⣖⡿⠿⢟⡳⣧⣾⣽⣿⣿⣿⡅⢣⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⢰⣁⣀⠀⠀⠀⣿⢟⡾⠉⠙⠂⠀⠒⠘⠄⠉⠉⠰⠓⠤⠔⠚⠉⣿⣟⣷⠉⠉⠉⠉⠉⠱⠀⠀⠀⠀⠀
+                ⠀⠀⠀⣸⠉⣿⣿⣿⣿⣿⡿⣽⡅⠀⠀⠀⠀⠀⢈⠀⠀⠀⠀⠀⠀⠀⢈⣾⣟⣷⣶⣶⣶⣶⡶⠺⡀⠀⠀⠀⠀
+                ⠀⠀⡔⠛⠛⠛⠛⠛⠛⢿⣿⣮⣿⠢⠀⠀⠀⢤⠊⡀⠀⢶⠄⠀⠀⠀⢹⣭⣾⡿⠿⠿⠟⠛⠛⠒⠳⡀⠀⠀⠀
+                ⠀⠀⡦⠤⠶⠶⠶⠶⠶⢾⣿⣿⣿⣧⠁⠀⠀⠀⣉⣳⣊⣀⠀⠀⠀⢠⣿⣿⣿⣤⠤⠤⠤⡤⡤⢶⣤⡇⠀⠀⠀
+                ⢀⣰⡥⠶⠦⠤⠶⠦⠦⠼⢿⣿⣿⣿⣷⣄⠆⠙⠭⠭⠭⠝⠉⢘⣴⣿⣿⣿⣡⣀⣀⣀⣀⣠⣤⣤⣤⠧⡀⠀⠀
+                ⠸⣶⣴⣤⡤⢤⠶⣶⣾⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⢠⠔⠁⣿⣿⣿⣿⣄⣀⣀⣠⣤⣄⣀⣤⣴⣶⡇⠀⠀
+                ⢠⣿⣿⣄⠀⠒⠀⠀⠚⠚⠛⠛⠋⠻⣿⣿⣿⣿⡿⣳⡻⣿⡀⢀⣿⠟⠛⠛⠒⠒⠒⠒⠒⠒⠒⣻⣿⣭⠀⠀⠀
+                ⢸⢋⠉⢿⣿⣍⣉⣉⣉⣉⣉⣿⣿⠀⠹⣿⣿⣿⡯⣺⡪⣿⡇⣼⡇⠀⣿⣋⣉⣉⣉⣁⢐⣲⣾⡿⠟⢻⠀⠀⠀
+                ⢸⣿⣣⣴⠿⣿⣄⣀⠀⠀⣀⣀⣀⠀⢸⢝⢿⣿⣟⣼⣪⣿⡿⣫⡇⠀⣀⣀⣀⣀⣀⣀⣰⣿⣯⡀⣶⣾⠀⠀⠀
+                ⠸⠛⢻⠓⠾⠛⣿⡤⠤⠤⠤⠺⠛⠀⢰⢝⢷⣽⣿⣼⡿⣟⣿⡿⢓⠰⠿⠧⠤⠤⠄⣼⡿⢷⠾⢿⠿⢿⠀⠀⠀
+                ⠀⣩⣉⣏⣉⣉⣹⣧⠤⠤⠤⢤⣴⠀⢠⡳⡝⣮⣿⣡⣿⣗⠥⣪⠀⢠⣤⡤⠤⠄⢠⣿⠄⢨⠤⢾⠂⢸⠀⠀⠀
+                ⠀⡦⠤⡧⠠⡆⠺⣿⡖⠒⠒⠚⠛⠀⠸⡳⢝⣦⣻⣿⣿⣟⣸⢻⠀⠘⠛⠒⠒⠤⡿⢎⣉⡄⢐⠸⠒⠈⠀⠀⠀
+                ⠀⡗⢉⡇⣉⣏⣙⣯⣿⡶⠶⣶⣶⠀⢘⢯⣦⣙⣏⣿⣏⣸⣡⣾⠀⢰⡦⢤⡤⣼⣏⡗⣒⡏⠀⡇⠉⡇⠀⠀⠀
+                ⠀⢱⣒⢲⡒⢢⠲⣗⢼⣟⠉⠉⠉⠀⢸⣮⡵⣆⣹⣉⣇⣸⡯⢼⠀⠈⠓⠒⢲⣟⣵⡩⢥⠠⢤⠭⢽⠀⠀⠀⠀
+                ⠀⠈⡤⠬⡬⢝⣝⡾⣄⢿⣟⣛⣿⠀⢸⢮⡿⢄⣇⣸⣀⣿⠤⢿⠀⢰⡶⢶⣾⣩⠧⢒⣟⠬⡭⠅⡎⠀⠀⠀⠀
+                ⠀⠀⢩⠩⢹⣕⠾⣯⡪⢻⢿⣿⣥⣤⣼⠇⣱⡸⣤⣇⣸⣈⣀⣿⣤⣬⣭⡿⡿⡓⣵⡧⣒⠝⠥⡒⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠻⡕⡹⢪⣔⡹⢳⢧⢿⣿⡿⡻⡆⣃⢿⢸⣆⡇⡄⣼⢤⡿⣿⢿⡯⢱⠺⢕⡨⢎⢌⠕⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠈⠒⢏⡜⡹⢳⢧⠧⡧⠧⢧⠐⢠⢸⢈⣇⡇⡇⡸⣼⢧⠮⡼⡅⡳⡛⡝⢎⠦⠃⠀⠀⠀⠀⠀⠀⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠈⠑⠃⠬⠼⠼⠼⠼⠼⠼⠼⠬⠇⠇⠧⠧⠤⠼⠤⠧⠧⠐⠚⠈⠀⢀⡝⢠⣶⠀⡶⢆⠄⠀
+                ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠘⠿⢛⣴⣿⠿⠷⠄"""+ ANSI_RESET);
         GameConsole.moveForward();
         System.out.println("Sphinx: Hello, human. To continue down your path you must answer my riddle. " +
                 "\nI will give you three chances to answer correctly, if you fail, I will dine upon your corpse...");

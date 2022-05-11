@@ -82,6 +82,11 @@ public class PlayableCharacter extends GameCharacter {
         System.out.println("Special Move: " + Narrator.RED + this.specialMoveToString() + Narrator.ANSI_RESET);
     }
 
+    @Override
+    public void printImage() {
+
+    }
+
     public String specialMoveToString() {
         return "special";
     }

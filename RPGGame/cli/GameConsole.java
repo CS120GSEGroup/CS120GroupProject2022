@@ -50,6 +50,8 @@ public class GameConsole {
 
             Narrator.printLevelZeroText();
             moveForward();
+            player.printImage();
+            moveForward();
             player.printPlayerStats();
             moveForward();
             game.battle();
@@ -86,7 +88,7 @@ public class GameConsole {
             }
             Narrator.printLevelFourText();
             game.bossBattle((Boss) game.getEnemies().get(0), game.getMainCharacter());
-            game.isGameOver();
+            Narrator.printVictoryMessage();
         }
 
 
@@ -108,7 +110,15 @@ public class GameConsole {
     }
 
     public static void printMainMenu() {
-        System.out.println("------Elden Square------");
+        System.out.println(Narrator.PURPLE+"   ▄████████  ▄█       ████████▄     ▄████████ ███▄▄▄▄           ▄████████ ████████▄   ███    █▄     ▄████████    ▄████████    ▄████████ \n" +
+                "  ███    ███ ███       ███   ▀███   ███    ███ ███▀▀▀██▄        ███    ███ ███    ███  ███    ███   ███    ███   ███    ███   ███    ███ \n" +
+                "  ███    █▀  ███       ███    ███   ███    █▀  ███   ███        ███    █▀  ███    ███  ███    ███   ███    ███   ███    ███   ███    █▀  \n" +
+                " ▄███▄▄▄     ███       ███    ███  ▄███▄▄▄     ███   ███        ███        ███    ███  ███    ███   ███    ███  ▄███▄▄▄▄██▀  ▄███▄▄▄     \n" +
+                "▀▀███▀▀▀     ███       ███    ███ ▀▀███▀▀▀     ███   ███      ▀███████████ ███    ███  ███    ███ ▀███████████ ▀▀███▀▀▀▀▀   ▀▀███▀▀▀     \n" +
+                "  ███    █▄  ███       ███    ███   ███    █▄  ███   ███               ███ ███    ███  ███    ███   ███    ███ ▀███████████   ███    █▄  \n" +
+                "  ███    ███ ███▌    ▄ ███   ▄███   ███    ███ ███   ███         ▄█    ███ ███  ▀ ███  ███    ███   ███    ███   ███    ███   ███    ███ \n" +
+                "  ██████████ █████▄▄██ ████████▀    ██████████  ▀█   █▀        ▄████████▀   ▀██████▀▄█ ████████▀    ███    █▀    ███    ███   ██████████ \n" +
+                "             ▀                                                                                                   ███    ███              "+Narrator.ANSI_RESET);
         System.out.println("(p) Play");
         System.out.println("(c) Credits");
         System.out.println("(e) Exit");

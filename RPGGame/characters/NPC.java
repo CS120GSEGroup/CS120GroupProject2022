@@ -42,6 +42,11 @@ public class NPC extends GameCharacter {
     }
 
     @Override
+    public void printImage() {
+
+    }
+
+    @Override
     public int takeDamage(GameCharacter c) {
         return c.getDamage();
     }
