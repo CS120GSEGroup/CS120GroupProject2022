@@ -86,6 +86,7 @@ public class GameConsole {
                     System.out.println("Todd: Only " + (game.getEnemies().size() - 1) + " guards left.");
                 }
             }
+            game.getEnemies().get(0).printImage();
             Narrator.printLevelFourText();
             game.bossBattle((Boss) game.getEnemies().get(0), game.getMainCharacter());
             Narrator.printVictoryMessage();

@@ -209,7 +209,7 @@ public class Game {
     }
 
     public void bossBattle(Boss boss, PlayableCharacter player) {
-        boss.printImage();
+
         int t1 = player.getDamage();
         int t2 = boss.getDamage();
         while (true) {

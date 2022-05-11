@@ -69,7 +69,6 @@ public class Boss extends NPC {
         return this.getName() + "the Dragon King";
     }
 
-    @Override
     public void printImage() {
         System.out.println("""
                 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⡶⠒⠂⠀⠀⠀⠀⠀⠙⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
